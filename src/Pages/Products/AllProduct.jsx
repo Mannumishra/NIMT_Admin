@@ -10,7 +10,7 @@ const AllProduct = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/get-course-details');
+                const response = await fetch('https://ins.api.digiindiasolutions.com/api/get-course-details');
                 const result = await response.json();
                 if (result.success) {
                     setCourseData(result.data);
@@ -34,7 +34,7 @@ const AllProduct = () => {
 
     const deleteRecord = async(id)=>{
         try {
-            const res = await axios.delete("http://localhost:8000/api/delete-course-details/"+id)
+            const res = await axios.delete("https://ins.api.digiindiasolutions.com/api/delete-course-details/"+id)
             console.log(res)
             if(res.status===200){
                 toast.success(res.data.message)

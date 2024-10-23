@@ -14,7 +14,7 @@ const AllTags = () => {
     const fetchCategories = async () => {
         try {
             setIsLoading(true); // Start loading
-            const response = await axios.get('http://localhost:8000/api/get-course-category');
+            const response = await axios.get('https://ins.api.digiindiasolutions.com/api/get-course-category');
             setCategories(response.data.data); // Store the fetched categories
             setIsLoading(false); // Stop loading
         } catch (error) {
@@ -37,7 +37,7 @@ const AllTags = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:8000/api/delete-course-category/${categoryName}`);
+                    await axios.delete(`https://ins.api.digiindiasolutions.com/api/delete-course-category/${categoryName}`);
                     Swal.fire('Deleted!', 'Your course category has been deleted.', 'success');
                     fetchCategories(); // Refetch categories after deletion
                 } catch (error) {

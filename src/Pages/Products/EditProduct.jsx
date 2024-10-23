@@ -23,7 +23,7 @@ const EditProduct = () => {
 
     const getApiData = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/get-all-course");
+            const res = await axios.get("https://ins.api.digiindiasolutions.com/api/get-all-course");
             if (res.status === 200) {
                 setCourseOptions(res.data.data);
             }
@@ -34,7 +34,7 @@ const EditProduct = () => {
 
     const getCourseDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:8000/api/get-single-course-details/${id}`);
+            const res = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course-details/${id}`);
             if (res.status === 200) {
                 setFormData({
                     courseName: res.data.data.courseName,
@@ -106,7 +106,7 @@ const EditProduct = () => {
         }
 
         try {
-            const response = await axios.put(`http://localhost:8000/api/update-course-details/${id}`, formDataToSend, {
+            const response = await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course-details/${id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

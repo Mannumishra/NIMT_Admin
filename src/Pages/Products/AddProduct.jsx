@@ -11,7 +11,7 @@ const AddProduct = () => {
 
     const getApiData = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/get-all-filter-course");
+            const res = await axios.get("https://ins.api.digiindiasolutions.com/api/get-all-filter-course");
             if (res.status === 200) {
                 setCourseOptions(res.data.data);
             }
@@ -63,7 +63,7 @@ const AddProduct = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/create-course-details', formDataToSend, {
+            const response = await axios.post('https://ins.api.digiindiasolutions.com/api/create-course-details', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

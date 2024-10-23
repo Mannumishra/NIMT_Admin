@@ -31,7 +31,7 @@ const AddBanner = () => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const response = await axios.post('http://localhost:8000/api/send-sale', data, { responseType: 'blob' });
+            const response = await axios.post('https://ins.api.digiindiasolutions.com/api/send-sale', data, { responseType: 'blob' });
             const blob = new Blob([response.data], { type: 'application/pdf' });
 
             if (!blob) {
