@@ -93,7 +93,7 @@ const AllProduct = () => {
                                 <td>{truncateText(item.briefContents, 50)}</td>
                                 <td>{truncateText(item.courseProject, 50)}</td>
                                 <td>{truncateText(item.certificate, 50)}</td>
-                                <td>{item.audience}</td>
+                                <td>{truncateText(item.audience,50)}</td>
                                 <td>{truncateText(item.trainingMethodology, 50)}</td>
                                 <td>
                                     <img src={item.image} alt={item.courseName.courseName} style={{ width: '100px', height: 'auto' }} />
