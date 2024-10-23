@@ -184,7 +184,7 @@ const AddCategory = () => {
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="courseDuration" className="form-label">Course Duration (in weeks)<sup className='text-danger'>*</sup></label>
+                        <label htmlFor="courseDuration" className="form-label">Course Duration (in Months)<sup className='text-danger'>*</sup></label>
                         <input
                             type="number"
                             name="courseDuration"
@@ -204,7 +204,6 @@ const AddCategory = () => {
                             id="courseEnrollment"
                             value={formData.courseEnrollment}
                             onChange={handleChange}
-                            required
                         />
                     </div>
                     <div className="col-md-6">

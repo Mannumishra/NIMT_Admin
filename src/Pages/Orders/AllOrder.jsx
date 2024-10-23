@@ -55,30 +55,30 @@ const AllOrder = () => {
                         </tr>
                     </thead>
                     <tbody>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>
-                                    <Link></Link>
-                                </td>
-                                <td>
-                                        <div>
-                                            <strong></strong><br />
-                                            SKU: <br />
-                                            Quantity: <br />
-                                            Price: 
-                                        </div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <Link  className="bt delete">
-                                        Delete <i className="fa-solid fa-trash"></i>
-                                    </Link>
-                                </td>
-                            </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>
+                                <Link></Link>
+                            </td>
+                            <td>
+                                <div>
+                                    <strong></strong><br />
+                                    SKU: <br />
+                                    Quantity: <br />
+                                    Price:
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <Link className="bt delete">
+                                    Delete <i className="fa-solid fa-trash"></i>
+                                </Link>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </section>
