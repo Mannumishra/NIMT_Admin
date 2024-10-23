@@ -13,7 +13,7 @@ const EditTag = () => {
     const fetchCourseCategory = async () => {
         try {
             console.log("Fetching category for:", name); // Debugging log
-            const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course-category/${name}`);
+            const response = await axios.get(`http://localhost:8000/api/get-single-course-category/${name}`);
             setCourseCategoryName(response.data.data.courseCategoryName); 
         } catch (error) {
             console.error(error);
@@ -25,7 +25,7 @@ const EditTag = () => {
         e.preventDefault();
         setBtnLoading(true);
         try {
-            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course-category/${name}`, {
+            await axios.put(`http://localhost:8000/api/update-course-category/${name}`, {
                 courseCategoryName,
             });
             toast.success("Course category updated successfully");

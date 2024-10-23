@@ -12,7 +12,7 @@ const AllCategory = () => {
     // Fetch courses from the API
     const fetchCourses = async () => {
         try {
-            const response = await axios.get('https://ins.api.digiindiasolutions.com/api/get-all-course'); // Adjust the API endpoint accordingly
+            const response = await axios.get('http://localhost:8000/api/get-all-course'); // Adjust the API endpoint accordingly
             console.log(response);
             setCourses(response.data.data); // Adjust based on your API response
         } catch (error) {
@@ -41,12 +41,12 @@ const AllCategory = () => {
 
         if (confirmed.isConfirmed) {
             try {
-                await axios.delete(`https://ins.api.digiindiasolutions.com/api/delete-course/${id}`); // Adjust the API endpoint accordingly
+                await axios.delete(`http://localhost:8000/api/delete-course/${id}`); // Adjust the API endpoint accordingly
                 toast.success('Course deleted successfully!');
                 fetchCourses(); // Refresh the course list
             } catch (error) {
                 console.error('Error deleting course:', error);
-                toast.error('Failed to delete course.');
+                toast.error(error.response?.data?.message || 'Failed to delete course.');
             }
         }
     };
@@ -55,7 +55,7 @@ const AllCategory = () => {
     const handleStatusChange = async (courseId, currentStatus) => {
         const updatedStatus = !currentStatus; // Toggle the status
         try {
-            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course/${courseId}`, { showinHomePage: updatedStatus });
+            await axios.put(`http://localhost:8000/api/update-course/${courseId}`, { showinHomePage: updatedStatus });
             toast.success('Course status updated successfully!');
             
             // Optionally update the local state to reflect the change immediately

@@ -21,7 +21,7 @@ const EditCategory = () => {
     // Fetch categories from the API
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('https://ins.api.digiindiasolutions.com/api/get-course-category');
+            const response = await axios.get('http://localhost:8000/api/get-course-category');
             setCategories(response.data.data); // Adjust based on your API response
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -32,7 +32,7 @@ const EditCategory = () => {
     // Fetch existing course data
     const fetchCourseData = async () => {
         try {
-            const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course/${name}`);
+            const response = await axios.get(`http://localhost:8000/api/get-single-course/${name}`);
             const { courseCtegory, courseName, courseTopic, courseDuration, courseEnrollment } = response.data.data;
             setFormData({
                 courseCtegory,
@@ -105,7 +105,7 @@ const EditCategory = () => {
 
         // Send API request
         try {
-            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course/${name}`, formDataToSend, {
+            await axios.put(`http://localhost:8000/api/update-course/${name}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

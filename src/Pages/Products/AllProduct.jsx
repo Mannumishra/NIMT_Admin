@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AllProduct = () => {
@@ -10,7 +10,7 @@ const AllProduct = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://ins.api.digiindiasolutions.com/api/get-course-details');
+                const response = await fetch('http://localhost:8000/api/get-course-details');
                 const result = await response.json();
                 if (result.success) {
                     setCourseData(result.data);
@@ -31,6 +31,18 @@ const AllProduct = () => {
         const plainText = doc.body.innerText || "";
         return plainText.length > limit ? plainText.substring(0, limit) + '...' : plainText;
     };
+
+    const deleteRecord = async(id)=>{
+        try {
+            const res = await axios.delete("http://localhost:8000/api/delete-course-details/"+id)
+            console.log(res)
+            if(res.status===200){
+                toast.success(res.data.message)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <>
@@ -76,17 +88,17 @@ const AllProduct = () => {
                             <tr key={item._id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{item.courseName.courseName}</td>
-                                <td>{truncateText(item.introduction, 100)}</td>
-                                <td>{truncateText(item.objectives, 100)}</td>
-                                <td>{truncateText(item.briefContents, 100)}</td>
-                                <td>{truncateText(item.courseProject, 100)}</td>
-                                <td>{truncateText(item.certificate, 100)}</td>
+                                <td>{truncateText(item.introduction, 50)}</td>
+                                <td>{truncateText(item.objectives, 50)}</td>
+                                <td>{truncateText(item.briefContents, 50)}</td>
+                                <td>{truncateText(item.courseProject, 50)}</td>
+                                <td>{truncateText(item.certificate, 50)}</td>
                                 <td>{item.audience}</td>
-                                <td>{truncateText(item.trainingMethodology, 100)}</td>
+                                <td>{truncateText(item.trainingMethodology, 50)}</td>
                                 <td>
                                     <img src={item.image} alt={item.courseName.courseName} style={{ width: '100px', height: 'auto' }} />
                                 </td>
-                                <td><Link className="bt delete">Delete <i className="fa-solid fa-trash"></i></Link></td>
+                                <td><Link className="bt delete" onClick={()=>deleteRecord(item._id)}>Delete <i className="fa-solid fa-trash"></i></Link></td>
                             </tr>
                         ))}
                     </tbody>

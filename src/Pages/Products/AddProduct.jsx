@@ -11,7 +11,7 @@ const AddProduct = () => {
 
     const getApiData = async () => {
         try {
-            const res = await axios.get("https://ins.api.digiindiasolutions.com/api/get-all-filter-course");
+            const res = await axios.get("http://localhost:8000/api/get-all-filter-course");
             if (res.status === 200) {
                 setCourseOptions(res.data.data);
             }
@@ -36,36 +36,7 @@ const AddProduct = () => {
         image: null
     });
 
-    const editorConfig = {
-        readonly: false, // set to true to disable editing
-        height: 300,
-        toolbar: {
-            buttons: [
-                'bold',
-                'italic',
-                'underline',
-                'strikethrough',
-                'fontsize',
-                'paragraph',
-                'image',
-                'table',
-                'link',
-                'align',
-                'undo',
-                'redo'
-            ],
-        },
-        events: {
-            change: (newContent) => {
-                // Capture content change
-                setFormData((prev) => ({
-                    ...prev,
-                    introduction: newContent, // For example, for the introduction
-                }));
-            },
-            // Additional event listeners can be added here
-        }
-    };
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -92,7 +63,7 @@ const AddProduct = () => {
         }
 
         try {
-            const response = await axios.post('https://ins.api.digiindiasolutions.com/api/create-course-details', formDataToSend, {
+            const response = await axios.post('http://localhost:8000/api/create-course-details', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -142,8 +113,8 @@ const AddProduct = () => {
                         <label htmlFor="introduction" className="form-label">Introduction</label>
                         <JoditEditor
                             value={formData.introduction}
-                            config={editorConfig}
-                            onChange={(newContent) => handleChange({ target: { name: 'introduction', value: newContent } })}
+                            // config={editorConfig}
+                            onBlur={(newContent) => setFormData({ ...formData, introduction: newContent })} // Capture content on blur
                         />
                     </div>
 
@@ -152,8 +123,8 @@ const AddProduct = () => {
                         <label htmlFor="objectives" className="form-label">Objectives</label>
                         <JoditEditor
                             value={formData.objectives}
-                            config={editorConfig}
-                            onChange={(newContent) => handleChange({ target: { name: 'objectives', value: newContent } })}
+                            // config={editorConfig}
+                            onBlur={(newContent) => setFormData({ ...formData, objectives: newContent })}
                         />
                     </div>
 
@@ -162,8 +133,8 @@ const AddProduct = () => {
                         <label htmlFor="briefContents" className="form-label">Brief Contents</label>
                         <JoditEditor
                             value={formData.briefContents}
-                            config={editorConfig}
-                            onChange={(newContent) => handleChange({ target: { name: 'briefContents', value: newContent } })}
+                            // config={editorConfig}
+                            onBlur={(newContent) => setFormData({ ...formData, briefContents: newContent })}
                         />
                     </div>
 
@@ -172,8 +143,8 @@ const AddProduct = () => {
                         <label htmlFor="courseProject" className="form-label">Course Project</label>
                         <JoditEditor
                             value={formData.courseProject}
-                            config={editorConfig}
-                            onChange={(newContent) => handleChange({ target: { name: 'courseProject', value: newContent } })}
+                            // config={editorConfig}
+                            onBlur={(newContent) => setFormData({ ...formData, courseProject: newContent })}
                         />
                     </div>
 
@@ -182,8 +153,8 @@ const AddProduct = () => {
                         <label htmlFor="certificate" className="form-label">Certificate</label>
                         <JoditEditor
                             value={formData.certificate}
-                            config={editorConfig}
-                            onChange={(newContent) => handleChange({ target: { name: 'certificate', value: newContent } })}
+                            // config={editorConfig}
+                            onBlur={(newContent) => setFormData({ ...formData, certificate: newContent })}
                         />
                     </div>
 
