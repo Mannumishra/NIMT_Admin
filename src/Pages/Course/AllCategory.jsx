@@ -120,7 +120,7 @@ const AllCategory = () => {
                                         <td>{course.courseCtegory.courseCategoryName}</td>
                                         <td>{course.courseName}</td>
                                         <td>{course.courseTopic.join(', ')}</td> {/* Join topics with a comma */}
-                                        <td>{course.courseDuration} week</td>
+                                        <td>{course.courseDuration} Months</td>
                                         <td>{course.courseEnrollment}</td>
                                         <td>
                                             <input 
