@@ -6,7 +6,7 @@ const AllUsers = () => {
 
     const getAllQuery = async () => {
         try {
-            const res = await axios.get("http://localhost:8000/api/get-queryes");
+            const res = await axios.get("https://ins.api.digiindiasolutions.com/api/get-queryes");
             console.log(res)
             if (res.status === 200) {
                 const newData = res.data.data;
@@ -19,7 +19,7 @@ const AllUsers = () => {
 
     const updateStatus = async (id, newStatus) => {
         try {
-            const res = await axios.put(`http://localhost:8000/api/update-status/${id}`, { status: newStatus });
+            const res = await axios.put(`https://ins.api.digiindiasolutions.com/api/update-status/${id}`, { status: newStatus });
             if (res.status === 200) {
                 alert('Status updated successfully');
                 getAllQuery(); // Refresh the data after updating the status
