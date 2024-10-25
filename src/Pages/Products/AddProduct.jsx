@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import JoditEditor from 'jodit-react';
@@ -8,7 +8,7 @@ import JoditEditor from 'jodit-react';
 const AddProduct = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [courseOptions, setCourseOptions] = useState([]);
-
+    const navigate = useNavigate()
     const getApiData = async () => {
         try {
             const res = await axios.get("https://ins.api.digiindiasolutions.com/api/get-all-filter-course");
@@ -69,6 +69,7 @@ const AddProduct = () => {
                 },
             });
             toast.success('Course details added successfully!');
+            navigate("/all-products")
         } catch (error) {
             toast.error('Error adding course details');
         } finally {

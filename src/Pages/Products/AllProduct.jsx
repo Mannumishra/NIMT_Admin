@@ -7,20 +7,20 @@ import 'react-toastify/dist/ReactToastify.css';
 const AllProduct = () => {
     const [courseData, setCourseData] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://ins.api.digiindiasolutions.com/api/get-course-details');
-                const result = await response.json();
-                if (result.success) {
-                    setCourseData(result.data);
-                } else {
-                    console.error("Failed to fetch course details.");
-                }
-            } catch (error) {
-                console.error("Error fetching course details:", error);
+    const fetchData = async () => {
+        try {
+            const response = await fetch('https://ins.api.digiindiasolutions.com/api/get-course-details');
+            const result = await response.json();
+            if (result.success) {
+                setCourseData(result.data);
+            } else {
+                console.error("Failed to fetch course details.");
             }
-        };
+        } catch (error) {
+            console.error("Error fetching course details:", error);
+        }
+    };
+    useEffect(() => {
         fetchData();
     }, []);
 
@@ -39,6 +39,7 @@ const AllProduct = () => {
             if(res.status===200){
                 toast.success(res.data.message)
             }
+            fetchData()
         } catch (error) {
             console.log(error)
         }
@@ -87,7 +88,7 @@ const AllProduct = () => {
                         {courseData.map((item, index) => (
                             <tr key={item._id}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{item.courseName.courseName}</td>
+                                <td>{item?.courseName?.courseName}</td>
                                 <td>{truncateText(item.introduction, 50)}</td>
                                 <td>{truncateText(item.objectives, 50)}</td>
                                 <td>{truncateText(item.briefContents, 50)}</td>
