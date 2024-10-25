@@ -32,11 +32,11 @@ const AllProduct = () => {
         return plainText.length > limit ? plainText.substring(0, limit) + '...' : plainText;
     };
 
-    const deleteRecord = async(id)=>{
+    const deleteRecord = async (id) => {
         try {
-            const res = await axios.delete("https://ins.api.digiindiasolutions.com/api/delete-course-details/"+id)
+            const res = await axios.delete("https://ins.api.digiindiasolutions.com/api/delete-course-details/" + id)
             console.log(res)
-            if(res.status===200){
+            if (res.status === 200) {
                 toast.success(res.data.message)
             }
             fetchData()
@@ -88,21 +88,22 @@ const AllProduct = () => {
                         {courseData.map((item, index) => (
                             <tr key={item._id}>
                                 <th scope="row">{index + 1}</th>
-                                <td>{item?.courseName?.courseName}</td>
-                                <td>{truncateText(item.introduction, 50)}</td>
-                                <td>{truncateText(item.objectives, 50)}</td>
-                                <td>{truncateText(item.briefContents, 50)}</td>
-                                <td>{truncateText(item.courseProject, 50)}</td>
-                                <td>{truncateText(item.certificate, 50)}</td>
-                                <td>{truncateText(item.audience,50)}</td>
-                                <td>{truncateText(item.trainingMethodology, 50)}</td>
+                                <td>{item.courseName?.courseName || 'N/A'}</td>
+                                <td>{truncateText(item.introduction || '', 50)}</td>
+                                <td>{truncateText(item.objectives || '', 50)}</td>
+                                <td>{truncateText(item.briefContents || '', 50)}</td>
+                                <td>{truncateText(item.courseProject || '', 50)}</td>
+                                <td>{truncateText(item.certificate || '', 50)}</td>
+                                <td>{truncateText(item.audience || '', 50)}</td>
+                                <td>{truncateText(item.trainingMethodology || '', 50)}</td>
                                 <td>
-                                    <img src={item.image} alt={item.courseName.courseName} style={{ width: '100px', height: 'auto' }} />
+                                    <img src={item.image || 'placeholder-image-url'} alt={item.courseName?.courseName || 'Course'} style={{ width: '100px', height: 'auto' }} />
                                 </td>
-                                <td><Link className="bt delete" onClick={()=>deleteRecord(item._id)}>Delete <i className="fa-solid fa-trash"></i></Link></td>
+                                <td><Link className="bt delete" onClick={() => deleteRecord(item._id)}>Delete <i className="fa-solid fa-trash"></i></Link></td>
                             </tr>
                         ))}
                     </tbody>
+
                 </table>
             </section>
         </>
