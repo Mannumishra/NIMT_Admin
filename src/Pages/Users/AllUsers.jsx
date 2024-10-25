@@ -62,8 +62,8 @@ const AllUsers = () => {
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone No</th>
-                                <th scope="col">Course</th>
-                                <th scope="col">Branch</th>
+                                <th scope="col">Course Category</th>
+                                <th scope="col">Course Name</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">Status</th>
                                 {/* Add more columns as needed */}
@@ -77,8 +77,8 @@ const AllUsers = () => {
                                         <td>{item.name}</td>
                                         <td>{item.email}</td>
                                         <td>{item.phone}</td>
-                                        <td>{item.course}</td>
                                         <td>{item.branch}</td>
+                                        <td>{item.course}</td>
                                         <td>{formatDate(item.createdAt)}</td>
                                         <td>
                                             <button
