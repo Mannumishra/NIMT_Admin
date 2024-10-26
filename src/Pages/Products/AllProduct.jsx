@@ -81,6 +81,7 @@ const AllProduct = () => {
                             <th scope="col">Audience</th>
                             <th scope="col">Training Methodology</th>
                             <th scope="col">Image</th>
+                            <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
                     </thead>
@@ -99,6 +100,7 @@ const AllProduct = () => {
                                 <td>
                                     <img src={item.image || 'placeholder-image-url'} alt={item.courseName?.courseName || 'Course'} style={{ width: '100px', height: 'auto' }} />
                                 </td>
+                                <td><Link to={`/edit-product/${item._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
                                 <td><Link className="bt delete" onClick={() => deleteRecord(item._id)}>Delete <i className="fa-solid fa-trash"></i></Link></td>
                             </tr>
                         ))}

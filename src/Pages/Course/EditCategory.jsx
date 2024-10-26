@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const EditCategory = () => {
-    const { name } = useParams(); // Get the course ID from the URL
+    const { id } = useParams(); // Get the course ID from the URL
     const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
         courseCtegory: '',
@@ -32,7 +32,7 @@ const EditCategory = () => {
     // Fetch existing course data
     const fetchCourseData = async () => {
         try {
-            const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course/${name}`);
+            const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course/${id}`);
             const { courseCtegory, courseName, courseTopic, courseDuration, courseEnrollment } = response.data.data;
             setFormData({
                 courseCtegory,
@@ -51,7 +51,7 @@ const EditCategory = () => {
     useEffect(() => {
         fetchCategories();
         fetchCourseData();
-    }, [name]); // Re-fetch if ID changes
+    }, [id]); // Re-fetch if ID changes
 
     // Handle input changes
     const handleChange = (e) => {
@@ -82,43 +82,50 @@ const EditCategory = () => {
         }
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-
+    
         // Create FormData instance
         const formDataToSend = new FormData();
-
+    
         // Append basic fields
         for (const key in formData) {
             if (key === 'courseTopic') {
-                // Append each topic separately
                 formData.courseTopic.forEach(topic => {
-                    formDataToSend.append('courseTopic[]', topic); // Use a different key to handle multiple topics
+                    formDataToSend.append('courseTopic[]', topic);
                 });
             } else {
-                formDataToSend.append(key, formData[key]);
+                if (key === 'courseEnrollment' && formData[key] === '') {
+                    formDataToSend.append(key, null); // Send null if empty
+                } else {
+                    formDataToSend.append(key, formData[key]);
+                }
             }
         }
-
-
+    
+        // Check if there's an image to update
+        if (formData.image) {
+            formDataToSend.append('image', formData.image);
+        }
+    
         // Send API request
         try {
-            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course/${name}`, formDataToSend, {
+            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course/${id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
             toast.success('Course updated successfully!');
-            navigate('/all-category'); // Redirect after success
+            navigate('/all-category');
         } catch (error) {
-            console.error(error);
+            console.error("Error during course update:", error);
             toast.error('Error updating course: ' + (error.response?.data?.message || 'An error occurred'));
         } finally {
             setIsLoading(false);
         }
     };
+    
 
     return (
         <>
@@ -140,7 +147,7 @@ const EditCategory = () => {
                             name="courseCtegory"
                             className="form-control"
                             id="courseCategoryId"
-                            // value={formData.courseCtegory}
+                            value={formData.courseCtegory}
                             onChange={handleChange}
                             required
                         >
@@ -203,7 +210,7 @@ const EditCategory = () => {
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="courseDuration" className="form-label">Course Duration (in weeks)<sup className='text-danger'>*</sup></label>
+                        <label htmlFor="courseDuration" className="form-label">Course Duration (in Months)<sup className='text-danger'>*</sup></label>
                         <input
                             type="number"
                             name="courseDuration"
@@ -223,7 +230,6 @@ const EditCategory = () => {
                             id="courseEnrollment"
                             value={formData.courseEnrollment}
                             onChange={handleChange}
-                            required
                         />
                     </div>
                     <div className="col-md-6">

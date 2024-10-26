@@ -41,7 +41,7 @@ const Home = () => {
               {/* Category */}
               <Route path="/all-category" element={<AllCategory />} />
               <Route path="/add-category" element={<AddCategory />} />
-              <Route path="/edit-category/:name" element={<EditCategory />} />
+              <Route path="/edit-category/:id" element={<EditCategory />} />
 
               {/* Product */}
               <Route path="/all-products" element={<AllProduct />} />

@@ -108,7 +108,7 @@ const AllCategory = () => {
                                 <th scope="col">Course Enrollment</th>
                                 <th scope="col">Show in Home</th> {/* New header for checkbox */}
                                 <th scope="col">Image</th>
-                                {/* <th scope="col">Edit</th> */}
+                                <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
@@ -121,7 +121,7 @@ const AllCategory = () => {
                                         <td>{course.courseName}</td>
                                         <td>{course.courseTopic.join(', ')}</td> {/* Join topics with a comma */}
                                         <td>{course.courseDuration} Months</td>
-                                        <td>{course.courseEnrollment}</td>
+                                        <td>{course.courseEnrollment?0:null}</td>
                                         <td>
                                             <input 
                                                 type="checkbox" 
@@ -132,9 +132,9 @@ const AllCategory = () => {
                                         <td>
                                             <img src={course.image} alt={course.courseName} style={{ width: '100px', height: 'auto' }} />
                                         </td>
-                                        {/* <td>
-                                            <Link to={`/edit-category/${course.courseName}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link>
-                                        </td> */}
+                                        <td>
+                                            <Link to={`/edit-category/${course._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link>
+                                        </td>
                                         <td>
                                             <button className="bt delete" onClick={() => handleDelete(course._id)}>Delete <i className="fa-solid fa-trash"></i></button>
                                         </td>
