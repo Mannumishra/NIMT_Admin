@@ -1,19 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const EditCategory = () => {
-    const { id } = useParams(); // Get the course ID from the URL
+const AddCourse = () => {
     const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
         courseCtegory: '',
         courseName: '',
-        courseTopic: [''], // Start with one empty topic
+        courseTopic: [''],  // Start with one empty topic
         courseDuration: '',
         courseEnrollment: '',
         image: null,
+        showinHomePage: false, // New field for checkbox
     });
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -29,33 +29,13 @@ const EditCategory = () => {
         }
     };
 
-    // Fetch existing course data
-    const fetchCourseData = async () => {
-        try {
-            const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course/${id}`);
-            const { courseCtegory, courseName, courseTopic, courseDuration, courseEnrollment } = response.data.data;
-            setFormData({
-                courseCtegory,
-                courseName,
-                courseTopic,
-                courseDuration,
-                courseEnrollment,
-                image: null,
-            });
-        } catch (error) {
-            console.error('Error fetching course data:', error);
-            toast.error('Failed to load course data.');
-        }
-    };
-
     useEffect(() => {
         fetchCategories();
-        fetchCourseData();
-    }, [id]); // Re-fetch if ID changes
+    }, []);
 
     // Handle input changes
     const handleChange = (e) => {
-        const { name, value, type, files, dataset } = e.target;
+        const { name, value, type, files, dataset, checked } = e.target;
         if (type === 'file') {
             setFormData({ ...formData, image: files[0] });
         } else {
@@ -63,6 +43,8 @@ const EditCategory = () => {
                 const updatedTopics = [...formData.courseTopic];
                 updatedTopics[dataset.index] = value;
                 setFormData({ ...formData, courseTopic: updatedTopics });
+            } else if (name === 'showinHomePage') {
+                setFormData({ ...formData, [name]: checked }); // Set checkbox value
             } else {
                 setFormData({ ...formData, [name]: value });
             }
@@ -82,60 +64,52 @@ const EditCategory = () => {
         }
     };
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-    
+
         // Create FormData instance
         const formDataToSend = new FormData();
-    
+
         // Append basic fields
         for (const key in formData) {
             if (key === 'courseTopic') {
+                // Append each topic separately
                 formData.courseTopic.forEach(topic => {
-                    formDataToSend.append('courseTopic[]', topic);
+                    formDataToSend.append('courseTopic[]', topic); // Use a different key to handle multiple topics
                 });
             } else {
-                if (key === 'courseEnrollment' && formData[key] === '') {
-                    formDataToSend.append(key, null); // Send null if empty
-                } else {
-                    formDataToSend.append(key, formData[key]);
-                }
+                formDataToSend.append(key, formData[key]);
             }
         }
-    
-        // Check if there's an image to update
-        if (formData.image) {
-            formDataToSend.append('image', formData.image);
-        }
-    
+
         // Send API request
         try {
-            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course/${id}`, formDataToSend, {
+            await axios.post('https://ins.api.digiindiasolutions.com/api/create-course', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            toast.success('Course updated successfully!');
-            navigate('/all-category');
+            toast.success('Course added successfully!');
+            navigate('/all-course');
         } catch (error) {
-            console.error("Error during course update:", error);
-            toast.error('Error updating course: ' + (error.response?.data?.message || 'An error occurred'));
+            console.error(error);
+            toast.error('Error adding course: ' + (error.response?.data?.message || 'An error occurred'));
         } finally {
             setIsLoading(false);
         }
     };
-    
 
     return (
         <>
             <ToastContainer />
             <div className="bread">
                 <div className="head">
-                    <h4>Edit Course</h4>
+                    <h4>Add Course</h4>
                 </div>
                 <div className="links">
-                    <Link to="/all-courses" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
+                    <Link to="/all-course" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
                 </div>
             </div>
 
@@ -240,15 +214,34 @@ const EditCategory = () => {
                             className="form-control"
                             id="image"
                             onChange={handleChange}
+                            required
                         />
                     </div>
+
+                    {/* Checkbox for showinHomePage */}
+                    <div className="col-md-6">
+                        <div className="form-check">
+                            <input
+                                type="checkbox"
+                                name="showinHomePage"
+                                className="form-check-input"
+                                id="showinHomePage"
+                                checked={formData.showinHomePage}
+                                onChange={handleChange}
+                            />
+                            <label className="form-check-label" htmlFor="showinHomePage">
+                                Show in Home Page
+                            </label>
+                        </div>
+                    </div>
+
                     <div className="col-12 text-center">
                         <button
                             type="submit"
                             disabled={isLoading}
                             className={`${isLoading ? 'not-allowed' : 'allowed'}`}
                         >
-                            {isLoading ? "Please Wait..." : "Update Course"}
+                            {isLoading ? "Please Wait..." : "Add Course"}
                         </button>
                     </div>
                 </form>
@@ -257,4 +250,4 @@ const EditCategory = () => {
     );
 };
 
-export default EditCategory;
+export default AddCourse;

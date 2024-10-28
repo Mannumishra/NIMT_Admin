@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const EditTag = () => {
+const EditCourseCategory = () => {
     const { name } = useParams();
     const navigate = useNavigate();
     const [courseCategoryName, setCourseCategoryName] = useState('');
@@ -29,7 +29,7 @@ const EditTag = () => {
                 courseCategoryName,
             });
             toast.success("Course category updated successfully");
-            navigate('/all-tags');
+            navigate('/all-course-category');
         } catch (error) {
             console.error(error);
             toast.error("Failed to update course category");
@@ -50,7 +50,7 @@ const EditTag = () => {
                     <h4>Edit Course Category</h4>
                 </div>
                 <div className="links">
-                    <Link to="/all-tags" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
+                    <Link to="/all-course-category" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
                 </div>
             </div>
 
@@ -82,4 +82,4 @@ const EditTag = () => {
     );
 };
 
-export default EditTag;
+export default EditCourseCategory;

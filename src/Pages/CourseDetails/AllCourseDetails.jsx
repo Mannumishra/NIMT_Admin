@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AllProduct = () => {
+const AllCourseDetails = () => {
     const [courseData, setCourseData] = useState([]);
 
     const fetchData = async () => {
@@ -53,7 +53,7 @@ const AllProduct = () => {
                     <h4>All Course Details</h4>
                 </div>
                 <div className="links">
-                    <Link to="/add-product" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
+                    <Link to="/add-course-details" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
                 </div>
             </div>
 
@@ -100,7 +100,7 @@ const AllProduct = () => {
                                 <td>
                                     <img src={item.image || 'placeholder-image-url'} alt={item.courseName?.courseName || 'Course'} style={{ width: '100px', height: 'auto' }} />
                                 </td>
-                                <td><Link to={`/edit-product/${item._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
+                                <td><Link to={`/edit-course-details/${item._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link></td>
                                 <td><Link className="bt delete" onClick={() => deleteRecord(item._id)}>Delete <i className="fa-solid fa-trash"></i></Link></td>
                             </tr>
                         ))}
@@ -112,4 +112,4 @@ const AllProduct = () => {
     );
 }
 
-export default AllProduct;
+export default AllCourseDetails;

@@ -50,17 +50,17 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link to="/all-tags" onClick={handletoggleBtn}>
+              <Link to="/all-course-category" onClick={handletoggleBtn}>
                 <i className="fa-solid fa-tag"></i> Manage Course Category
               </Link>
             </li>
             <li>
-              <Link to="/all-category" onClick={handletoggleBtn}>
+              <Link to="/all-course" onClick={handletoggleBtn}>
                 <i className="fa-solid fa-tag"></i> Manage Course
               </Link>
             </li>
             <li>
-              <Link to="/all-products" onClick={handletoggleBtn}>
+              <Link to="/all-course-details" onClick={handletoggleBtn}>
                 <i className="fa-solid fa-layer-group"></i> Manage Course Details
               </Link>
             </li>
@@ -69,12 +69,6 @@ const Header = () => {
                 <i className="fa-solid fa-user"></i> All Users
               </Link>
             </li>
-            {/* Uncomment the lines below if you want to include them */}
-            {/* <li><Link to="/all-banners" onClick={handletoggleBtn}><i className="fa-regular fa-images"></i> Manage Banners</Link></li>
-            <li><Link to="/all-shop-banners" onClick={handletoggleBtn}><i className="fa-brands fa-unsplash"></i> Manage Shop Banners</Link></li>
-            <li><Link to="/all-voucher" onClick={handletoggleBtn}><i className="fa-brands fa-cc-discover"></i> Manage Voucher</Link></li>
-            <li><Link to="/all-orders" onClick={handletoggleBtn}><i className="fa-solid fa-truck-arrow-right"></i> Manage Orders</Link></li> */}
-            
             <button className='logout mb-5' onClick={handleLogout}>
               Log Out <i className="fa-solid fa-right-from-bracket"></i>
             </button>

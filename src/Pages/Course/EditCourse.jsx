@@ -1,62 +1,79 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AddCategory = () => {
+const EditCourse = () => {
+    const { id } = useParams();
     const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
         courseCtegory: '',
         courseName: '',
-        courseTopic: [''],  // Start with one empty topic
+        courseTopic: [''],
         courseDuration: '',
         courseEnrollment: '',
         image: null,
-        showinHomePage: false, // New field for checkbox
+        showinHomePage: false,
     });
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    // Fetch categories from the API
     const fetchCategories = async () => {
         try {
             const response = await axios.get('https://ins.api.digiindiasolutions.com/api/get-course-category');
-            setCategories(response.data.data); // Adjust based on your API response
+            setCategories(response.data.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
             toast.error('Failed to load categories.');
         }
     };
 
-    useEffect(() => {
-        fetchCategories();
-    }, []);
+    const fetchCategoryData = async () => {
+        try {
+            const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course/${id}`);
+            const data = response.data.data;
 
-    // Handle input changes
-    const handleChange = (e) => {
-        const { name, value, type, files, dataset, checked } = e.target;
-        if (type === 'file') {
-            setFormData({ ...formData, image: files[0] });
-        } else {
-            if (name === 'courseTopic') {
-                const updatedTopics = [...formData.courseTopic];
-                updatedTopics[dataset.index] = value;
-                setFormData({ ...formData, courseTopic: updatedTopics });
-            } else if (name === 'showinHomePage') {
-                setFormData({ ...formData, [name]: checked }); // Set checkbox value
-            } else {
-                setFormData({ ...formData, [name]: value });
-            }
+            setFormData({
+                courseCtegory: typeof data.courseCtegory === 'object' ? data.courseCtegory._id : data.courseCtegory,
+                courseName: data.courseName || '',
+                courseTopic: data.courseTopic || [''],
+                courseDuration: data.courseDuration || '',
+                courseEnrollment: data.courseEnrollment || '',
+                image: null,
+                showinHomePage: data.showinHomePage || false,
+            });
+        } catch (error) {
+            console.error('Error fetching course data:', error);
+            toast.error('Failed to load course data.');
         }
     };
 
-    // Add a new topic input
+    useEffect(() => {
+        fetchCategories();
+        fetchCategoryData();
+    }, [id]);
+
+    const handleChange = (e) => {
+        const { name, value, type, files, dataset, checked } = e.target;
+
+        if (type === 'file') {
+            setFormData({ ...formData, image: files[0] });
+        } else if (name === 'courseTopic') {
+            const updatedTopics = [...formData.courseTopic];
+            updatedTopics[dataset.index] = value;
+            setFormData({ ...formData, courseTopic: updatedTopics });
+        } else if (name === 'showinHomePage') {
+            setFormData({ ...formData, [name]: checked });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
+    };
+
     const handleAddTopic = () => {
         setFormData({ ...formData, courseTopic: [...formData.courseTopic, ''] });
     };
 
-    // Remove a topic input
     const handleRemoveTopic = (index) => {
         if (formData.courseTopic.length > 1) {
             const updatedTopics = formData.courseTopic.filter((_, i) => i !== index);
@@ -64,38 +81,30 @@ const AddCategory = () => {
         }
     };
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
-        // Create FormData instance
         const formDataToSend = new FormData();
-
-        // Append basic fields
         for (const key in formData) {
             if (key === 'courseTopic') {
-                // Append each topic separately
-                formData.courseTopic.forEach(topic => {
-                    formDataToSend.append('courseTopic[]', topic); // Use a different key to handle multiple topics
-                });
+                formData.courseTopic.forEach(topic => formDataToSend.append('courseTopic[]', topic));
             } else {
                 formDataToSend.append(key, formData[key]);
             }
         }
 
-        // Send API request
         try {
-            await axios.post('https://ins.api.digiindiasolutions.com/api/create-course', formDataToSend, {
+            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course/${id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            toast.success('Course added successfully!');
-            navigate('/all-category');
+            toast.success('Course updated successfully!');
+            navigate('/all-course');
         } catch (error) {
             console.error(error);
-            toast.error('Error adding course: ' + (error.response?.data?.message || 'An error occurred'));
+            toast.error('Error updating course: ' + (error.response?.data?.message || 'An error occurred'));
         } finally {
             setIsLoading(false);
         }
@@ -106,10 +115,10 @@ const AddCategory = () => {
             <ToastContainer />
             <div className="bread">
                 <div className="head">
-                    <h4>Add Course</h4>
+                    <h4>Edit Course</h4>
                 </div>
                 <div className="links">
-                    <Link to="/all-courses" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
+                    <Link to="/all-course" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
                 </div>
             </div>
 
@@ -214,11 +223,9 @@ const AddCategory = () => {
                             className="form-control"
                             id="image"
                             onChange={handleChange}
-                            required
                         />
                     </div>
 
-                    {/* Checkbox for showinHomePage */}
                     <div className="col-md-6">
                         <div className="form-check">
                             <input
@@ -239,9 +246,9 @@ const AddCategory = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className={`${isLoading ? 'not-allowed' : 'allowed'}`}
+                            className={`${isLoading ? 'not-allowed' : 'submit-btn'}`}
                         >
-                            {isLoading ? "Please Wait..." : "Add Course"}
+                            {isLoading ? 'Updating...' : 'Update Course'}
                         </button>
                     </div>
                 </form>
@@ -250,4 +257,4 @@ const AddCategory = () => {
     );
 };
 
-export default AddCategory;
+export default EditCourse;

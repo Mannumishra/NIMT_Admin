@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import JoditEditor from 'jodit-react';
 
-const EditProduct = () => {
+const EditCourseDetails = () => {
     const { id } = useParams(); // Get course ID from URL parameters
+    const Navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false);
     const [courseOptions, setCourseOptions] = useState([]);
     const [formData, setFormData] = useState({
@@ -37,7 +38,7 @@ const EditProduct = () => {
             const res = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course-details/${id}`);
             if (res.status === 200) {
                 setFormData({
-                    courseName: res.data.data.courseName,
+                    courseName: res.data.data.courseName._id, // Set to _id of courseName
                     introduction: res.data.data.introduction,
                     objectives: res.data.data.objectives,
                     briefContents: res.data.data.briefContents,
@@ -48,7 +49,6 @@ const EditProduct = () => {
                     image: null // Reset image if you don't want to show previous image
                 });
             }
-            console.log(formData.courseName._id)
         } catch (error) {
             console.log(error);
             toast.error('Error fetching course details');
@@ -61,7 +61,7 @@ const EditProduct = () => {
     }, [id]);
 
     const editorConfig = {
-        readonly: false, // set to true to disable editing
+        readonly: false,
         height: 300,
         toolbar: {
             buttons: [
@@ -83,10 +83,10 @@ const EditProduct = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: name === 'courseName' ? value : value // Handle courseName separately
+        }));
     };
 
     const handleImageChange = (e) => {
@@ -112,8 +112,9 @@ const EditProduct = () => {
                 },
             });
             toast.success('Course details updated successfully!');
+            Navigate("/all-course-details");
         } catch (error) {
-            console.log(error)
+            console.log(error);
             toast.error('Error updating course details');
         } finally {
             setIsLoading(false);
@@ -128,7 +129,7 @@ const EditProduct = () => {
                     <h4>Edit Course Details</h4>
                 </div>
                 <div className="links">
-                    <Link to="/all-courses" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
+                    <Link to="/all-course-details" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
                 </div>
             </div>
 
@@ -139,7 +140,7 @@ const EditProduct = () => {
                         <label htmlFor="courseName" className="form-label">Course Name</label>
                         <select
                             name="courseName"
-                            value={formData.courseName._id}
+                            value={formData.courseName}
                             onChange={handleChange}
                             className="form-control"
                             id="courseName"
@@ -152,12 +153,12 @@ const EditProduct = () => {
                         </select>
                     </div>
 
+                    {/* Other form fields... */}
                     {/* Introduction */}
                     <div className="col-12">
                         <label htmlFor="introduction" className="form-label">Introduction</label>
                         <JoditEditor
                             value={formData.introduction}
-                            config={editorConfig}
                             onChange={(newContent) => handleChange({ target: { name: 'introduction', value: newContent } })}
                         />
                     </div>
@@ -167,7 +168,7 @@ const EditProduct = () => {
                         <label htmlFor="objectives" className="form-label">Objectives</label>
                         <JoditEditor
                             value={formData.objectives}
-                            config={editorConfig}
+                            // config={editorConfig}
                             onChange={(newContent) => handleChange({ target: { name: 'objectives', value: newContent } })}
                         />
                     </div>
@@ -177,7 +178,7 @@ const EditProduct = () => {
                         <label htmlFor="briefContents" className="form-label">Brief Contents</label>
                         <JoditEditor
                             value={formData.briefContents}
-                            config={editorConfig}
+                            // config={editorConfig}
                             onChange={(newContent) => handleChange({ target: { name: 'briefContents', value: newContent } })}
                         />
                     </div>
@@ -187,7 +188,7 @@ const EditProduct = () => {
                         <label htmlFor="courseProject" className="form-label">Course Project</label>
                         <JoditEditor
                             value={formData.courseProject}
-                            config={editorConfig}
+                            // config={editorConfig}
                             onChange={(newContent) => handleChange({ target: { name: 'courseProject', value: newContent } })}
                         />
                     </div>
@@ -197,7 +198,7 @@ const EditProduct = () => {
                         <label htmlFor="certificate" className="form-label">Certificate</label>
                         <JoditEditor
                             value={formData.certificate}
-                            config={editorConfig}
+                            // config={editorConfig}
                             onChange={(newContent) => handleChange({ target: { name: 'certificate', value: newContent } })}
                         />
                     </div>
@@ -256,4 +257,4 @@ const EditProduct = () => {
     );
 };
 
-export default EditProduct;
+export default EditCourseDetails;

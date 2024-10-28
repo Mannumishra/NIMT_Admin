@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 
-const AllCategory = () => {
+const AllCourse = () => {
     const [courses, setCourses] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -82,7 +82,7 @@ const AllCategory = () => {
                     <h4>All Course List</h4>
                 </div>
                 <div className="links">
-                    <Link to="/add-category" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
+                    <Link to="/add-course" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
                 </div>
             </div>
 
@@ -133,7 +133,7 @@ const AllCategory = () => {
                                             <img src={course.image} alt={course.courseName} style={{ width: '100px', height: 'auto' }} />
                                         </td>
                                         <td>
-                                            <Link to={`/edit-category/${course._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link>
+                                            <Link to={`/edit-course/${course._id}`} className="bt edit">Edit <i className="fa-solid fa-pen-to-square"></i></Link>
                                         </td>
                                         <td>
                                             <button className="bt delete" onClick={() => handleDelete(course._id)}>Delete <i className="fa-solid fa-trash"></i></button>
@@ -153,4 +153,4 @@ const AllCategory = () => {
     );
 }
 
-export default AllCategory;
+export default AllCourse;

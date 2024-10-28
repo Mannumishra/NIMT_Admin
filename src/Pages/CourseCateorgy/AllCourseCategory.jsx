@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AllTags = () => {
+const AllCourseCategory = () => {
     const [categories, setCategories] = useState([]); // To store fetched categories
     const [isLoading, setIsLoading] = useState(true); // Loading state
     const [searchTerm, setSearchTerm] = useState(''); // Search state
@@ -66,7 +66,7 @@ const AllTags = () => {
                     <h4>All Course Categories</h4>
                 </div>
                 <div className="links">
-                    <Link to="/add-tag" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
+                    <Link to="/add-course-category" className="add-new">Add New <i className="fa-solid fa-plus"></i></Link>
                 </div>
             </div>
 
@@ -104,7 +104,7 @@ const AllTags = () => {
                                     <th scope="row">{index + 1}</th>
                                     <td>{category.courseCategoryName}</td>
                                     <td>
-                                        <Link to={`/edit-tag/${category.courseCategoryName}`} className="bt edit">
+                                        <Link to={`/edit-course-category/${category.courseCategoryName}`} className="bt edit">
                                             Edit <i className="fa-solid fa-pen-to-square"></i>
                                         </Link>
                                     </td>
@@ -130,4 +130,4 @@ const AllTags = () => {
     );
 };
 
-export default AllTags;
+export default AllCourseCategory;

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AddTag = () => {
+const AddCourseCategory = () => {
     const [courseCategoryName, setCourseCategoryName] = useState(''); // State for form input
     const [isLoading, setIsLoading] = useState(false); // Loading state for submit button
     const navigate = useNavigate(); // To navigate back after successful addition
@@ -22,7 +22,7 @@ const AddTag = () => {
             if (response.status===200) {
                 toast.success(response.data.message);
                 setTimeout(() => {
-                    navigate('/all-tags');
+                    navigate('/all-course-category');
                 }, 2000); 
             }
         } catch (error) {
@@ -45,7 +45,7 @@ const AddTag = () => {
                     <h4>Add Course Category</h4>
                 </div>
                 <div className="links">
-                    <Link to="/all-tags" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
+                    <Link to="/all-course-category" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
                 </div>
             </div>
 
@@ -77,4 +77,4 @@ const AddTag = () => {
     );
 };
 
-export default AddTag;
+export default AddCourseCategory;

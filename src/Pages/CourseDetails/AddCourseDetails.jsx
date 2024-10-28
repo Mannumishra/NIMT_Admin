@@ -5,13 +5,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import JoditEditor from 'jodit-react';
 
-const AddProduct = () => {
+const AddCourseDetails = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [courseOptions, setCourseOptions] = useState([]);
     const navigate = useNavigate()
     const getApiData = async () => {
         try {
             const res = await axios.get("https://ins.api.digiindiasolutions.com/api/get-all-filter-course");
+            console.log(res)
             if (res.status === 200) {
                 setCourseOptions(res.data.data);
             }
@@ -36,7 +37,7 @@ const AddProduct = () => {
         image: null
     });
 
-    
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -69,7 +70,7 @@ const AddProduct = () => {
                 },
             });
             toast.success('Course details added successfully!');
-            navigate("/all-products")
+            navigate("/all-course-details")
         } catch (error) {
             toast.error('Error adding course details');
         } finally {
@@ -85,7 +86,7 @@ const AddProduct = () => {
                     <h4>Add Course Details</h4>
                 </div>
                 <div className="links">
-                    <Link to="/all-courses" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
+                    <Link to="/all-course-details" className="add-new">Back <i className="fa-regular fa-circle-left"></i></Link>
                 </div>
             </div>
 
@@ -214,4 +215,4 @@ const AddProduct = () => {
     );
 };
 
-export default AddProduct;
+export default AddCourseDetails;
