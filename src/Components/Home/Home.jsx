@@ -14,6 +14,12 @@ import EditCourseCategory from '../../Pages/CourseCateorgy/EditCourseCategory';
 import AllCourseDetails from '../../Pages/CourseDetails/AllCourseDetails';
 import AddCourseDetails from '../../Pages/CourseDetails/AddCourseDetails';
 import EditCourseDetails from '../../Pages/CourseDetails/EditCourseDetails';
+import AllGallery from '../../Pages/Gallery/AllGallery';
+import AddGallery from '../../Pages/Gallery/AddGallery';
+import EditGallery from '../../Pages/Gallery/EditGallery';
+import AllNews from '../../Pages/News/AllNews';
+import AddNews from '../../Pages/News/AddNews';
+import EditNews from '../../Pages/News/EditNews';
 // import Login from '../auth/Login';
 
 const Home = () => {
@@ -37,6 +43,18 @@ const Home = () => {
               <Route path="/all-course-details" element={<AllCourseDetails />} />
               <Route path="/add-course-details" element={<AddCourseDetails />} />
               <Route path="/edit-course-details/:id" element={<EditCourseDetails />} />
+
+
+              
+              {/* Gallery */}
+              <Route path="/all-gallery" element={<AllGallery />} />
+              <Route path="/add-gallery" element={<AddGallery />} />
+              <Route path="/edit-gallery/:id" element={<EditGallery />} />
+
+                {/* News */}
+                <Route path="/all-news" element={<AllNews />} />
+              <Route path="/add-news" element={<AddNews />} />
+              <Route path="/edit-news/:id" element={<EditNews />} />
 
               {/* Users */}
               <Route path="/all-users" element={<AllUsers />} />

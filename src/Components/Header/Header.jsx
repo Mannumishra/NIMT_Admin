@@ -50,6 +50,21 @@ const Header = () => {
               </Link>
             </li>
             <li>
+              <Link to="/all-users" onClick={handletoggleBtn}>
+                <i className="fa-solid fa-user"></i> All Enquery
+              </Link>
+            </li>
+            <li>
+              <Link to="/all-gallery" onClick={handletoggleBtn}>
+                <i className="fa-solid fa-layer-group"></i> Manage Gallery
+              </Link>
+            </li>
+            <li>
+              <Link to="/all-news" onClick={handletoggleBtn}>
+                <i className="fa-solid fa-layer-group"></i> Manage News
+              </Link>
+            </li>
+            <li>
               <Link to="/all-course-category" onClick={handletoggleBtn}>
                 <i className="fa-solid fa-tag"></i> Manage Course Category
               </Link>
@@ -62,11 +77,6 @@ const Header = () => {
             <li>
               <Link to="/all-course-details" onClick={handletoggleBtn}>
                 <i className="fa-solid fa-layer-group"></i> Manage Course Details
-              </Link>
-            </li>
-            <li>
-              <Link to="/all-users" onClick={handletoggleBtn}>
-                <i className="fa-solid fa-user"></i> All Users
               </Link>
             </li>
             <button className='logout mb-5' onClick={handleLogout}>
