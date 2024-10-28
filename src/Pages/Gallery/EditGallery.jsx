@@ -18,7 +18,7 @@ const EditGallery = () => {
     useEffect(() => {
         const fetchGalleryItem = async () => {
             try {
-                const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-gallery/${id}`);
+                const response = await axios.get(`https://api.nimteducation.com/api/get-single-gallery/${id}`);
                 const { image, showinHomePage } = response.data;
                 setFormData({ ...formData, showinHomePage }); // Set the string value directly
                 setCurrentImage(image); // Set the existing image for display
@@ -55,7 +55,7 @@ const EditGallery = () => {
             }
 
             // Send update request
-            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-gallery/${id}`, updateData, {
+            await axios.put(`https://api.nimteducation.com/api/update-gallery/${id}`, updateData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

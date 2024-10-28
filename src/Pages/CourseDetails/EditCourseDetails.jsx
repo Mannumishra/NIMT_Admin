@@ -24,7 +24,7 @@ const EditCourseDetails = () => {
 
     const getApiData = async () => {
         try {
-            const res = await axios.get("https://ins.api.digiindiasolutions.com/api/get-all-course");
+            const res = await axios.get("https://api.nimteducation.com/api/get-all-course");
             if (res.status === 200) {
                 setCourseOptions(res.data.data);
             }
@@ -35,7 +35,7 @@ const EditCourseDetails = () => {
 
     const getCourseDetails = async () => {
         try {
-            const res = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course-details/${id}`);
+            const res = await axios.get(`https://api.nimteducation.com/api/get-single-course-details/${id}`);
             if (res.status === 200) {
                 setFormData({
                     courseName: res.data.data.courseName._id, // Set to _id of courseName
@@ -106,7 +106,7 @@ const EditCourseDetails = () => {
         }
 
         try {
-            const response = await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course-details/${id}`, formDataToSend, {
+            const response = await axios.put(`https://api.nimteducation.com/api/update-course-details/${id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

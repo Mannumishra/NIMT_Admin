@@ -21,7 +21,7 @@ const EditNews = () => {
     useEffect(() => {
         const fetchNewsItem = async () => {
             try {
-                const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-news/${id}`);
+                const response = await axios.get(`https://api.nimteducation.com/api/get-single-news/${id}`);
                 const { newsHeading, newsDetails, newsDate, newsImage, newsShowInhomePage } = response.data;
                 setFormData({ 
                     newsHeading, 
@@ -76,7 +76,7 @@ const EditNews = () => {
             data.append('newsShowInhomePage', formData.newsShowInhomePage);
 
             // Send data to the backend
-            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-news/${id}`, data, {
+            await axios.put(`https://api.nimteducation.com/api/update-news/${id}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

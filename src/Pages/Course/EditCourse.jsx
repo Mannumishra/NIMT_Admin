@@ -21,7 +21,7 @@ const EditCourse = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('https://ins.api.digiindiasolutions.com/api/get-course-category');
+            const response = await axios.get('https://api.nimteducation.com/api/get-course-category');
             setCategories(response.data.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -31,7 +31,7 @@ const EditCourse = () => {
 
     const fetchCategoryData = async () => {
         try {
-            const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course/${id}`);
+            const response = await axios.get(`https://api.nimteducation.com/api/get-single-course/${id}`);
             const data = response.data.data;
 
             setFormData({
@@ -95,7 +95,7 @@ const EditCourse = () => {
         }
 
         try {
-            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course/${id}`, formDataToSend, {
+            await axios.put(`https://api.nimteducation.com/api/update-course/${id}`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

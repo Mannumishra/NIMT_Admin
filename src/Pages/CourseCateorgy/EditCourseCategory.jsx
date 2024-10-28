@@ -13,7 +13,7 @@ const EditCourseCategory = () => {
     const fetchCourseCategory = async () => {
         try {
             console.log("Fetching category for:", name); // Debugging log
-            const response = await axios.get(`https://ins.api.digiindiasolutions.com/api/get-single-course-category/${name}`);
+            const response = await axios.get(`https://api.nimteducation.com/api/get-single-course-category/${name}`);
             setCourseCategoryName(response.data.data.courseCategoryName); 
         } catch (error) {
             console.error(error);
@@ -25,7 +25,7 @@ const EditCourseCategory = () => {
         e.preventDefault();
         setBtnLoading(true);
         try {
-            await axios.put(`https://ins.api.digiindiasolutions.com/api/update-course-category/${name}`, {
+            await axios.put(`https://api.nimteducation.com/api/update-course-category/${name}`, {
                 courseCategoryName,
             });
             toast.success("Course category updated successfully");

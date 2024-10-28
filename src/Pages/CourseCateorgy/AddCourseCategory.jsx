@@ -18,7 +18,7 @@ const AddCourseCategory = () => {
         }
         try {
             setIsLoading(true);
-            const response = await axios.post('https://ins.api.digiindiasolutions.com/api/create-course-category', { courseCategoryName });
+            const response = await axios.post('https://api.nimteducation.com/api/create-course-category', { courseCategoryName });
             if (response.status===200) {
                 toast.success(response.data.message);
                 setTimeout(() => {

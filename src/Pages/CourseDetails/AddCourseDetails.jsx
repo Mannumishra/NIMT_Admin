@@ -11,7 +11,7 @@ const AddCourseDetails = () => {
     const navigate = useNavigate()
     const getApiData = async () => {
         try {
-            const res = await axios.get("https://ins.api.digiindiasolutions.com/api/get-all-filter-course");
+            const res = await axios.get("https://api.nimteducation.com/api/get-all-filter-course");
             console.log(res)
             if (res.status === 200) {
                 setCourseOptions(res.data.data);
@@ -64,7 +64,7 @@ const AddCourseDetails = () => {
         }
 
         try {
-            const response = await axios.post('https://ins.api.digiindiasolutions.com/api/create-course-details', formDataToSend, {
+            const response = await axios.post('https://api.nimteducation.com/api/create-course-details', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

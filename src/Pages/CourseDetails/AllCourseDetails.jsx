@@ -9,7 +9,7 @@ const AllCourseDetails = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('https://ins.api.digiindiasolutions.com/api/get-course-details');
+            const response = await fetch('https://api.nimteducation.com/api/get-course-details');
             const result = await response.json();
             if (result.success) {
                 setCourseData(result.data);
@@ -34,7 +34,7 @@ const AllCourseDetails = () => {
 
     const deleteRecord = async (id) => {
         try {
-            const res = await axios.delete("https://ins.api.digiindiasolutions.com/api/delete-course-details/" + id)
+            const res = await axios.delete("https://api.nimteducation.com/api/delete-course-details/" + id)
             console.log(res)
             if (res.status === 200) {
                 toast.success(res.data.message)
