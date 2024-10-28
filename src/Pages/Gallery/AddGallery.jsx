@@ -40,7 +40,7 @@ const AddGallery = () => {
             data.append('showinHomePage', formData.showinHomePage);
 
             // Send data to the backend
-            const response = await axios.post('http://localhost:8000/api/create-gallery', data, {
+            const response = await axios.post('https://ins.api.digiindiasolutions.com/api/create-gallery', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

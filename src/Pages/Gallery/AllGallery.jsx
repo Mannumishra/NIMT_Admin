@@ -13,7 +13,7 @@ const AllGallery = () => {
     useEffect(() => {
         const fetchGalleryItems = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/get-gallery'); // Adjust the endpoint as needed
+                const response = await axios.get('https://ins.api.digiindiasolutions.com/api/get-gallery'); // Adjust the endpoint as needed
                 console.log(response)
                 setGalleryItems(response.data.data);
                 setIsLoading(false);
@@ -39,7 +39,7 @@ const AllGallery = () => {
         if (confirmDelete.isConfirmed) {
             try {
                 // Delete from the database and Cloudinary
-                await axios.delete(`http://localhost:8000/api/delete-gallery/${id}`);
+                await axios.delete(`https://ins.api.digiindiasolutions.com/api/delete-gallery/${id}`);
                 toast.success("Gallery item deleted successfully");
                 setGalleryItems(galleryItems.filter(item => item._id !== id));
             } catch (error) {

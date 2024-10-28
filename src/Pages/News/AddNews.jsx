@@ -50,7 +50,7 @@ const AddNews = () => {
             data.append('newsShowInhomePage', formData.newsShowInhomePage);
 
             // Send data to the backend
-            const response = await axios.post('http://localhost:8000/api/create-news', data, {
+            const response = await axios.post('https://ins.api.digiindiasolutions.com/api/create-news', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

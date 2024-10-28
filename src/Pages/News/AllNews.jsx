@@ -12,7 +12,7 @@ const AllNews = () => {
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/get-news');
+                const response = await axios.get('https://ins.api.digiindiasolutions.com/api/get-news');
                 setGalleryItems(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -38,7 +38,7 @@ const AllNews = () => {
 
         if (result.isConfirmed) {
             try {
-                await axios.delete(`http://localhost:8000/api/delete-news/${id}`);
+                await axios.delete(`https://ins.api.digiindiasolutions.com/api/delete-news/${id}`);
                 setGalleryItems((prevItems) => prevItems.filter((item) => item._id !== id));
                 Swal.fire('Deleted!', 'Your news item has been deleted.', 'success');
             } catch (error) {
